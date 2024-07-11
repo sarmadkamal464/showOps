@@ -1,12 +1,12 @@
-'use client'
-import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import datepickerStyle from "../styles/datePicker.module.css"
-import {Box} from "@radix-ui/themes";
-import Image from 'next/image';
-import SelectZone from './SelectZone';
-import Modal from './Modal/Modal';
+"use client";
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import datepickerStyle from "../styles/datePicker.module.css";
+import { Box, Button } from "@radix-ui/themes";
+import Image from "next/image";
+import SelectZone from "./SelectZone";
+import Modal from "./Modal/Modal";
 
 const EventForm = () => {
   const [eventName, setEventName] = useState("");
@@ -56,26 +56,28 @@ const EventForm = () => {
     }
     setFormError(newErrors);
     if (!hasErrors) {
-    const eventData = {
-      eventName,
-      selectedDate,
-      timeZone,
-      startTime,
-      endTime,
-      description,
-      videoLink,
-    };
+      const eventData = {
+        eventName,
+        selectedDate,
+        timeZone,
+        startTime,
+        endTime,
+        description,
+        videoLink,
+      };
 
-    localStorage.setItem('eventData', JSON.stringify(eventData));
-    setIsModalOpen(true);
-    setEventName("");
-    setDescription("");
-    setSelectedDate(null);
-    setTimeZone("");
-    setStartTime(null);
-    setEndTime(null);
-    setVideoLink('');
-  }
+      localStorage.setItem("eventData", JSON.stringify(eventData));
+      setIsModalOpen(true);
+      setEventName("");
+      setDescription("");
+      setSelectedDate(null);
+      setTimeZone("");
+      setStartTime(null);
+      setEndTime(null);
+      setVideoLink("");
+      setBannerImage(null);
+      setImagePreview(null);
+    }
   };
 
   const handleEdit = () => {
@@ -89,8 +91,8 @@ const EventForm = () => {
     setTimeZone(eventData.timeZone || "");
     setStartTime(eventData.startTime ? new Date(eventData.startTime) : null);
     setEndTime(eventData.endTime ? new Date(eventData.endTime) : null);
-    setDescription(eventData.description || '');
-    setVideoLink(eventData.videoLink || '');
+    setDescription(eventData.description || "");
+    setVideoLink(eventData.videoLink || "");
     setTimeout(() => {
       localStorage.removeItem("eventData");
     }, 1000);
@@ -123,30 +125,33 @@ const EventForm = () => {
       setVideoLink(value);
     }
   };
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const { value } = e.target;
+  // const handleDescriptionChange = (
+  //   e: React.ChangeEvent<HTMLTextAreaElement>
+  // ) => {
+  //   const { value } = e.target;
 
-    // Update description state
-    setDescription(value);
+  //   // Update description state
+  //   setDescription(value);
 
-    // Validate description length
-    if (value.length < 15) {
-      setFormError({ description: true });
-    } else {
-      setFormError({ description: false });
-    }
-  };
-
+  //   // Validate description length
+  //   if (value.length < 15) {
+  //     setFormError({ description: 'Description' });
+  //   } else {
+  //     setFormError({ description: '' });
+  //   }
+  // };
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (file) {
-      // Validate file type (optional)
-      const allowedTypes = ['image/png', 'image/jpeg', 'image/svg+xml', 'image/gif'];
+      const allowedTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/svg+xml",
+        "image/gif",
+      ];
       if (!allowedTypes.includes(file.type)) {
-        alert('Invalid file type. Please upload an image.');
+        alert("Invalid file type. Please upload an image.");
         return;
       }
 
@@ -159,6 +164,11 @@ const EventForm = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleRemoveImage = () => {
+    setBannerImage(null);
+    setImagePreview(null);
   };
   return (
     <Box className="event-form">
@@ -293,8 +303,9 @@ const EventForm = () => {
             id="description"
             placeholder="Add event description..."
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e)=>setDescription(e.target.value)}
             className={formError.description && "event-error"}
+            minLength={15}
           ></textarea>
         </Box>
         <Box className="video">
@@ -310,41 +321,61 @@ const EventForm = () => {
             />
           </Box>
         </Box>
-        {/* <Box className="banner-image">
-          <label htmlFor="">Banner image</label>
+        <Box className="banner-image">
+          <label htmlFor="bannerImage">Banner image</label>
           <Box>
             <p>
-              <a href="">Click to upload </a>or drag and drop SVG, PNG, JPG or GIF
-              (recommended size 1024x1024px)
+              <a
+                href="#!"
+                onClick={() => document.getElementById("fileInput").click()}
+              >
+                Click to upload
+              </a>{" "}
+              or drag and drop SVG, PNG, JPG or GIF (recommended size
+              1024x1024px)
             </p>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
           </Box>
         </Box>
-        <Box className="PreviewImage">
-          <Image
-            src="./images/Left Content.svg"
-            alt=""
-            width={120}
-            height={120}
-          />
-          <Box className="ImageContent">
-            <Button>
-              <Image src="./images/trash.svg" width={16} height={16} alt="" />
-            </Button>
-            <h1>Hall and Oats 2024 Tour.JPG</h1>
-            <h3>12MB</h3>
+        {imagePreview && (
+          <Box className="PreviewImage">
+            <Image src={imagePreview} alt="" width={120} height={120} />
+            <Box className="ImageContent">
+              <Button onClick={handleRemoveImage}>
+                <Image src="./images/trash.svg" width={16} height={16} alt="" />
+              </Button>
+              <h1>{bannerImage?.name}</h1>
+              <h3>{(bannerImage?.size / (1024 * 1024)).toFixed(2)} MB</h3>
+            </Box>
           </Box>
-        </Box>
+        )}
         <Box className="form-button">
-          <button type="submit" className="submit">Create event</button>
-          <button type="button" className="cancel" onClick={()=>{
-               setEventName("");
-               setDescription("");
-               setSelectedDate(null);
-               setTimeZone("");
-               setStartTime(null);
-               setEndTime(null);
-               setVideoLink('');
-          }}>Cancel</button>
+          <button type="submit" className="submit">
+            Create event
+          </button>
+          <button
+            type="button"
+            className="cancel"
+            onClick={() => {
+              setEventName("");
+              setDescription("");
+              setSelectedDate(null);
+              setTimeZone("");
+              setStartTime(null);
+              setEndTime(null);
+              setVideoLink("");
+              setBannerImage(null);
+              setImagePreview(null);
+            }}
+          >
+            Cancel
+          </button>
         </Box>
       </form>
     </Box>
