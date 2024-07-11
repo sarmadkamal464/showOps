@@ -1,21 +1,36 @@
-import React, { useState } from "react";
-import { Box, Button, Link } from "@radix-ui/themes";
+import React, { useEffect } from "react";
+import { Box, Button } from "@radix-ui/themes";
 import Image from "next/image";
-import * as Menubar from "@radix-ui/react-menubar";
-import SwitchDemo from "../Switch/switch";
-import { navigationItems, profileItems } from "../../constants/index.js";
 
-const Modal = () => {
-  // const [darkMode, setDarkMode] = useState(false);
+type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onEdit: () => void;
+  eventDate: string;
+};
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onEdit, eventDate }) => {
+    useEffect(() => {
+        if (isOpen) {
+          const timer = setTimeout(() => {
+            onClose();
+          }, 10000);
+    
+          return () => clearTimeout(timer);
+        }
+      }, [isOpen, onClose]);
+  if (!isOpen) return null;
+
   return (
-    <Box className="EventModalWrapper">
-        <Box className="EventModal">
-            <h1>Event created on March 14, 2025!</h1>
-            <Button>Edit event</Button>
-            <Image src="./images/cross-2.svg" alt="Event" width={200} height={200} />
-        </Box>
-    </Box>
+<Box className="EventModalWrapper">
+<Box className="EventModal">
+    <h1>Event created on {eventDate}</h1>
+    <Button onClick={onEdit}>Edit event</Button>
+    <Image onClick={onClose} src="./images/cross-2.svg" alt="Event" width={200} height={200} />
+</Box>
+</Box>
   );
 };
 
 export default Modal;
+

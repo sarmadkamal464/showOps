@@ -6,7 +6,7 @@ import datepickerStyle from "../styles/datePicker.module.css"
 import {Box} from "@radix-ui/themes";
 import Image from 'next/image';
 import SelectZone from './SelectZone';
-import Modal from './EditModal';
+import Modal from './Modal/Modal';
 
 const EventForm = () => {
   const [eventName, setEventName] = useState('');
