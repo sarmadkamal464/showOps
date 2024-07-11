@@ -24,7 +24,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onEdit, eventDate }) => 
   return (
 <Box className="EventModalWrapper">
 <Box className="EventModal">
-    <h1>Event created on {eventDate}</h1>
+    <h1>Event created on 10 july 2024</h1>
     <Button onClick={onEdit}>Edit event</Button>
     <Image onClick={onClose} src="./images/cross-2.svg" alt="Event" width={200} height={200} />
 </Box>
