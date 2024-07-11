@@ -56,28 +56,23 @@ const Navbar = () => {
           </Box>
         </Box>
         <Box className="profile-notification">
-          {/* <Menubar.Root>
+          <Menubar.Root>
             <Menubar.Menu>
-              <Menubar.Content>
-                <Menubar.Item>
-                  <Image
-                    src="./images/bell.svg"
-                    alt=""
-                    width={18}
-                    height={18}
-                  />
-                </Menubar.Item>
-              </Menubar.Content>
+              <Menubar.Trigger>
+                <Image src="./images/bell.svg" alt="" width={18} height={18} />
+              </Menubar.Trigger>
             </Menubar.Menu>
-          </Menubar.Root> */}
-          <ul>
-            <li>
-              <img src="./images/bell.svg" alt="" />
-            </li>
-            <li>
-              <img src="./images/profile-4.svg" alt="" />
-            </li>
-          </ul>
+            <Menubar.Menu>
+              <Menubar.Trigger>
+                <Image
+                  src="./images/profile-4.svg"
+                  alt=""
+                  width={40}
+                  height={40}
+                />
+              </Menubar.Trigger>
+            </Menubar.Menu>
+          </Menubar.Root>
         </Box>
       </Box>
     </Box>

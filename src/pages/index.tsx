@@ -5,7 +5,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { useGlobalState } from '../context/GlobalState';
 import Sidebar from '../components/sidebar';
-import Navbar from '../components/navbar';
+import Navbar from '../components/Navbar/navbar';
 import EventForm from '../components/eventform';
 
 const Home: NextPage = () => {
