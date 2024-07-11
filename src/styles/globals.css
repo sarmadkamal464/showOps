@@ -2,6 +2,7 @@
 @import url(./select.css);
 @import url(./sidebar.css);
 @import url(./switch.css);
+@import url(./eventform.css);
 html,
 body {
   padding: 0;
