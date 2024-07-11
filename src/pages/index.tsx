@@ -4,8 +4,8 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { useGlobalState } from '../context/GlobalState';
-import Sidebar from '../components/Sidebar/sidebar';
-import Navbar from '../components/Navbar/navbar';
+import Sidebar from '../components/Sidebar/Sidebar';
+import Navbar from '../components/Navbar/Navbar';
 import EventForm from '../components/eventform';
 import { Box } from '@radix-ui/themes';
 

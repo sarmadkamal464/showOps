@@ -1,5 +1,6 @@
 @import url(./navbar.css);
 @import url(./sidebar.css);
+@import url(./switch.css);
 html,
 body {
   padding: 0;

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Box } from "@radix-ui/themes";
 import Image from "next/image";
 import * as Menubar from "@radix-ui/react-menubar";
+import SwitchDemo from "../Switch/switch";
 
 const Sidebar = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
   const navigationItems = [
     {
       imageSrc: "./images/dashboard.svg",
@@ -69,7 +70,7 @@ const Sidebar = () => {
               <Menubar.Root className="navigation-menu">
                 {navigationItems.map((item, index) => (
                   <Menubar.Menu key={index}>
-                    <Menubar.Trigger className={index == 0?'active':'' }>
+                    <Menubar.Trigger className={index == 0 ? "active" : ""}>
                       <Image
                         width={16}
                         height={16}
@@ -106,19 +107,11 @@ const Sidebar = () => {
               </Menubar.Root>
             </Box>
           </Box>
+          <Box>
+          <SwitchDemo></SwitchDemo>
+          </Box>
+
           <Box className="sidebar-footer">
-            <Box className={darkMode ? "dark-mode" : "light-mode"}>
-              <Box
-                onClick={() => {
-                  document.body.className = darkMode
-                    ? "dark-theme"
-                    : "light-theme";
-                  setDarkMode(!darkMode);
-                }}>
-                <span></span>
-              </Box>
-              <label>Dark Mode</label>
-            </Box>
             <Box className="terms-policy">
               <a href="#">Terms of Use</a>
               <a href="#">Privacy Policy</a>
