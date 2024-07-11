@@ -10,7 +10,7 @@ import datepickerStyle from "../styles/datePicker.module.css"
 const timeZones = [
   { value: 'UTC', label: 'UTC' },
   { value: 'GMT', label: 'GMT' },
-  // Add more time zones as needed
+  { value: 'PDT', label: 'PDT' },
 ];
 const EventForm = () => {
   const [eventName, setEventName] = useState('');
