@@ -1,25 +1,12 @@
 import React from "react";
 import { Label } from "@radix-ui/react-label";
-import { Box, Button } from "@radix-ui/themes";
+import { Box, Button, TextField } from "@radix-ui/themes";
 import Image from "next/image";
 import * as Menubar from "@radix-ui/react-menubar";
+import { menuItems } from "../../constants/index.js";
 
 const Navbar = () => {
   // Define an array of menu items
-  const menuItems = [
-    {
-      imageSrc: "./images/bell.svg",
-      alt: "Notification Bell",
-      width: 18,
-      height: 18
-    },
-    {
-      imageSrc: "./images/profile-4.svg",
-      alt: "Profile Avatar",
-      width: 40,
-      height: 40
-    }
-  ];
 
   return (
     <Box className="navbar">
@@ -27,7 +14,7 @@ const Navbar = () => {
         <Button className="sidebar-btn">
           <Image
             src="./images/chevron-left.svg"
-            alt=""
+            alt="chevron-left"
             width={18}
             height={18}
           />
@@ -35,7 +22,7 @@ const Navbar = () => {
         <Button className="navbar-btn">
           <Image
             src="./images/hamburger-menu.svg"
-            alt=""
+            alt="hamburger-menu"
             width={18}
             height={18}
           />
@@ -47,14 +34,14 @@ const Navbar = () => {
           <Box className="search-icon">
             <Image
               src="./images/magnifying-glass.svg"
-              alt=""
+              alt="magnifying-glass"
               width={16}
               height={16}
             />
           </Box>
           <Box className="search-input">
             <Label htmlFor="search" className="search-label"></Label>
-            <input
+            <TextField.Root
               id="search"
               type="search"
               placeholder="Search ShowOps"
@@ -65,7 +52,7 @@ const Navbar = () => {
             <Button>
               <Image
                 src="./images/ShiftTab.svg"
-                alt=""
+                alt="ShiftTab"
                 width={27}
                 height={24}
               />

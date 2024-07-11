@@ -1,58 +1,12 @@
 import React, { useState } from "react";
-import { Box } from "@radix-ui/themes";
+import { Box, Link } from "@radix-ui/themes";
 import Image from "next/image";
 import * as Menubar from "@radix-ui/react-menubar";
 import SwitchDemo from "../Switch/switch";
+import { navigationItems, profileItems } from "../../constants/index.js";
 
 const Sidebar = () => {
   // const [darkMode, setDarkMode] = useState(false);
-  const navigationItems = [
-    {
-      imageSrc: "./images/dashboard.svg",
-      alt: "Dashboard",
-      text: "Dashboard",
-    },
-    {
-      imageSrc: "./images/calendar.svg",
-      alt: "Calendar",
-      text: "Calendar",
-    },
-    {
-      imageSrc: "./images/bookmark.svg",
-      alt: "Events",
-      text: "Events",
-    },
-    {
-      imageSrc: "./images/backpack.svg",
-      alt: "Offers & Deals",
-      text: "Offers & Deals",
-    },
-    {
-      imageSrc: "./images/mixer-horizontal.svg",
-      alt: "Settings",
-      text: "Settings",
-    },
-  ];
-  const profileItems = [
-    {
-      imageSrc: "./images/profile-1.svg",
-      alt: "Profile",
-      label: "Tourist",
-      text: "The Viper Room",
-    },
-    {
-      imageSrc: "./images/profile-2.svg",
-      alt: "Profile",
-      label: "Jason Isbell",
-      text: "The Wiltren",
-    },
-    {
-      imageSrc: "./images/profile-3.svg",
-      alt: "Profile",
-      label: "Brenn!",
-      text: "The Troubadour",
-    },
-  ];
   return (
     <Box>
       <Box className="sidebar">
@@ -108,13 +62,13 @@ const Sidebar = () => {
             </Box>
           </Box>
           <Box>
-          <SwitchDemo></SwitchDemo>
+            <SwitchDemo></SwitchDemo>
           </Box>
 
           <Box className="sidebar-footer">
             <Box className="terms-policy">
-              <a href="#">Terms of Use</a>
-              <a href="#">Privacy Policy</a>
+              <Link href="#">Terms of Use</Link>
+              <Link href="#">Privacy Policy</Link>
             </Box>
           </Box>
         </Box>

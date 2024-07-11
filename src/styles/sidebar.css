@@ -62,6 +62,7 @@
       > img {
         width: 16px;
         height: 16px;
+        filter: var(--img-mode-color);
       }
       > h1 {
         font-size: 16px;
