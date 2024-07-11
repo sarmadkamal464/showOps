@@ -8,7 +8,6 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Navbar from '../components/Navbar/Navbar';
 import EventForm from '../components/eventform';
 import { Box } from '@radix-ui/themes';
-import Modal from '../components/Modal/Modal';
 
 const Home: NextPage = () => {
   const [state, dispatch] = useGlobalState();
@@ -19,7 +18,6 @@ const Home: NextPage = () => {
         <Sidebar />
         <Box className="content">
           <Navbar />
-          <Modal />
           <EventForm />
         </Box>
       </Box>
