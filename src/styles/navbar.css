@@ -26,6 +26,9 @@
       background-color: var(--background-color-light-gray);
       border: none;
       border-radius: 7px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     > .navbar-btn {
       width: 40px;
@@ -33,6 +36,9 @@
       background-color: var(--background-color-light-green);
       border: none;
       border-radius: 7px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
   .navbar-menu {
