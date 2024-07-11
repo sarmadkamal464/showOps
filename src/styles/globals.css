@@ -308,6 +308,7 @@ a {
 .EventModalWrapper{
   display: flex;
   justify-content: end;
+  padding-right: 20px;
 }
 .EventModal{
   display: flex;
