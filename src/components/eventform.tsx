@@ -1,12 +1,12 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import datepickerStyle from "../styles/datePicker.module.css";
-import { Box } from "@radix-ui/themes";
-import Image from "next/image";
-import SelectZone from "./SelectZone";
-import Modal from "./Modal/Modal";
+'use client'
+import React, { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import datepickerStyle from "../styles/datePicker.module.css"
+import {Box} from "@radix-ui/themes";
+import Image from 'next/image';
+import SelectZone from './SelectZone';
+import Modal from './Modal/Modal';
 
 const EventForm = () => {
   const [eventName, setEventName] = useState("");
@@ -56,29 +56,26 @@ const EventForm = () => {
     }
     setFormError(newErrors);
     if (!hasErrors) {
-      const eventData = {
-        eventName,
-        selectedDate,
-        timeZone,
-        startTime,
-        endTime,
-        description,
-        videoLink,
-        bannerImage,
-      };
+    const eventData = {
+      eventName,
+      selectedDate,
+      timeZone,
+      startTime,
+      endTime,
+      description,
+      videoLink,
+    };
 
-      localStorage.setItem("eventData", JSON.stringify(eventData));
-      setIsModalOpen(true);
-      setEventName("");
-      setDescription("");
-      setSelectedDate(null);
-      setTimeZone("");
-      setStartTime(null);
-      setEndTime(null);
-      setVideoLink("");
-      setBannerImage(null); // Reset bannerImage state
-      setImagePreview(null); // Reset imagePreview state
-    }
+    localStorage.setItem('eventData', JSON.stringify(eventData));
+    setIsModalOpen(true);
+    setEventName("");
+    setDescription("");
+    setSelectedDate(null);
+    setTimeZone("");
+    setStartTime(null);
+    setEndTime(null);
+    setVideoLink('');
+  }
   };
 
   const handleEdit = () => {
@@ -92,10 +89,8 @@ const EventForm = () => {
     setTimeZone(eventData.timeZone || "");
     setStartTime(eventData.startTime ? new Date(eventData.startTime) : null);
     setEndTime(eventData.endTime ? new Date(eventData.endTime) : null);
-    setDescription(eventData.description || "");
-    setVideoLink(eventData.videoLink || "");
-    setBannerImage(eventData.bannerImage || null); // Set bannerImage state from local storage
-    setImagePreview(null); 
+    setDescription(eventData.description || '');
+    setVideoLink(eventData.videoLink || '');
     setTimeout(() => {
       localStorage.removeItem("eventData");
     }, 1000);
@@ -298,13 +293,9 @@ const EventForm = () => {
             id="description"
             placeholder="Add event description..."
             value={description}
-            onChange={handleDescriptionChange}
-            className={formError.description ? "event-error" : ""}
-            minLength={15}
+            onChange={(e) => setDescription(e.target.value)}
+            className={formError.description && "event-error"}
           ></textarea>
-          {formError.description && (
-        <p className="error-message">Event Description should be more than 15 characters.</p>
-      )}
         </Box>
         <Box className="video">
           <label htmlFor="videoLink">Video</label>
@@ -323,53 +314,37 @@ const EventForm = () => {
           <label htmlFor="">Banner image</label>
           <Box>
             <p>
-              <a href="">Click to upload </a>or drag and drop SVG, PNG, JPG or
-              GIF (recommended size 1024x1024px)
+              <a href="">Click to upload </a>or drag and drop SVG, PNG, JPG or GIF
+              (recommended size 1024x1024px)
             </p>
           </Box>
-        </Box> */}
-          <Box className="banner-image">
-        <label htmlFor="bannerImage">Banner image</label>
-        <Box>
-          <p>
-            <a href="#!" onClick={() => document.getElementById('fileInput').click()}>
-              Click to upload
-            </a>
-            {" "}or drag and drop SVG, PNG, JPG or GIF (recommended size 1024x1024px)
-          </p>
-          <input
-            id="fileInput"
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleImageUpload}
-          />
-          {imagePreview && (
-            <div className="image-preview">
-              <img src={imagePreview} alt="Banner Preview" width={200} />
-            </div>
-          )}
         </Box>
+        <Box className="PreviewImage">
+          <Image
+            src="./images/Left Content.svg"
+            alt=""
+            width={120}
+            height={120}
+          />
+          <Box className="ImageContent">
+            <Button>
+              <Image src="./images/trash.svg" width={16} height={16} alt="" />
+            </Button>
+            <h1>Hall and Oats 2024 Tour.JPG</h1>
+            <h3>12MB</h3>
+          </Box>
         </Box>
         <Box className="form-button">
-          <button type="submit" className="submit">
-            Create event
-          </button>
-          <button
-            type="button"
-            className="cancel"
-            onClick={() => {
-              setEventName("");
-              setDescription("");
-              setSelectedDate(null);
-              setTimeZone("");
-              setStartTime(null);
-              setEndTime(null);
-              setVideoLink("");
-            }}
-          >
-            Cancel
-          </button>
+          <button type="submit" className="submit">Create event</button>
+          <button type="button" className="cancel" onClick={()=>{
+               setEventName("");
+               setDescription("");
+               setSelectedDate(null);
+               setTimeZone("");
+               setStartTime(null);
+               setEndTime(null);
+               setVideoLink('');
+          }}>Cancel</button>
         </Box>
       </form>
     </Box>
