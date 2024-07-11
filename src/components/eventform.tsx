@@ -8,119 +8,6 @@ import Image from 'next/image';
 import SelectZone from './SelectZone';
 import Modal from './EditModal';
 
-// const EventForm = () => {
-//   const [eventName, setEventName] = useState('');
-//   const [selectedDate, setSelectedDate] = useState(null);
-//   const [timeZone, setTimeZone] = useState('');
-//   const [startTime, setStartTime] = useState(null);
-//   const [endTime, setEndTime] = useState(null);
-//   const [description, setDescription] = useState('');
-//   const [videoLink, setVideoLink] = useState('');
-
-//   return (
-//     <Box className="event-form">
-//       <Box className="form-error">
-//         <img src="./images/info-icon.svg" alt="" />
-//         <h1>Missing event name</h1>
-//       </Box>
-//       <Box className="create-event">
-//         <h1>Create an event</h1>
-//         <p>
-//           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//           eiusmod tempor incididunt ut labore et dolore
-//         </p>
-//       </Box>
-//       <Box className="event-name">
-//         <label htmlFor="">Event name</label>
-//         <input
-//           placeholder="Your event name"
-//           value={eventName}
-//           onChange={(e) => setEventName(e.target.value)}
-//         />
-//       </Box>
-//       <Box className="date-time">
-//         <label htmlFor="dateTime">Date & time</label>
-//         <Box>
-//           <Box>
-//             <Image src="./images/calendar.svg" alt="calendar" width={18} height={18}/>
-//             <DatePicker
-//               selected={selectedDate}
-//               onChange={(date) => setSelectedDate(date)}
-//               placeholderText="Select date(s)..."
-//               dateFormat="MMMM d, yyyy"
-//               className={datepickerStyle.datePickerInput}
-//             />
-//             <Image src="./images/chevron-down.svg" alt="chevron-down"  width={18} height={18}/>
-//           </Box>
-//           <Box>
-//             <Image src="./images/calendar.svg" alt="calendar" width={18} height={18} />
-//             <SelectZone/>
-             
-//             <Image src="./images/chevron-down.svg" alt="chevron-down" width={18} height={18} />
-//           </Box>
-//           <Box>
-//           <Image src="./images/calendar.svg" alt="calendar" width={18} height={18}/>
-//             <DatePicker
-//               selected={startTime}
-//               onChange={(time) => setStartTime(time)}
-//               showTimeSelect
-//               showTimeSelectOnly
-//               timeIntervals={15}
-//               timeCaption="Start Time"
-//               dateFormat="h:mm aa"
-//               placeholderText="Select Start Time"
-//               className={datepickerStyle.datePickerInput}
-//             />
-//             <Image src="./images/chevron-down.svg" alt="chevron-down"  width={18} height={18}/>
-//           </Box>
-//           <Box>
-//           <Image src="./images/calendar.svg" alt="calendar" width={18} height={18}/>
-//             <DatePicker
-//               selected={endTime}
-//               onChange={(time) => setEndTime(time)}
-//               showTimeSelect
-//               showTimeSelectOnly
-//               timeIntervals={15}
-//               timeCaption="End Time"
-//               dateFormat="h:mm aa"
-//               placeholderText="Select End Time"
-//               className={datepickerStyle.datePickerInput}
-//             />
-//             <Image src="./images/chevron-down.svg" alt="chevron-down"  width={18} height={18}/>
-//           </Box>
-//         </Box>
-//       </Box>
-//       <Box className="description">
-//         <label htmlFor="">Description</label>
-//         <textarea
-//           name=""
-//           id=""
-//           placeholder="Add event description..."
-//         ></textarea>
-//       </Box>
-//       <Box className="video">
-//         <label htmlFor="">Video</label>
-//         <Box>
-//           <Image src="./images/link-2.svg" alt="" width={18} height={18}/>
-//           <input type="text" placeholder="Add video link..." />
-//         </Box>
-//       </Box>
-//       <Box className="banner-image">
-//         <label htmlFor="">Banner image</label>
-//         <Box>
-//           <p>
-//             <a href="">Click to upload </a>or drag and drop SVG, PNG, JPG or GIF
-//             (recommended size 1024x1024px)
-//           </p>
-//         </Box>
-//       </Box>
-//       <Box className="form-button">
-//         <button className="submit">Create event</button>
-//         <button className="cancel">Cancel</button>
-//       </Box>
-//     </Box>
-//   );
-// };
 const EventForm = () => {
   const [eventName, setEventName] = useState('');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -129,7 +16,10 @@ const EventForm = () => {
   const [endTime, setEndTime] = useState<Date | null>(null);
   const [description, setDescription] = useState<string>('');
   const [videoLink, setVideoLink] = useState<string>('');
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<object | null>({
+    eventName:"",
+    description:""
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -148,11 +38,20 @@ const EventForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!eventName || !description) {
-      setFormError('Event name and description are required');
-      return;
+    let hasErrors = false;
+    const newErrors = { eventName: '', description: '' };
+
+    if (!eventName.trim()) {
+      newErrors.eventName = 'Name';
+      hasErrors = true;
     }
 
+    if (!description.trim()) {
+      newErrors.description = 'Description';
+      hasErrors = true;
+    }
+    setFormError(newErrors);
+    if (!hasErrors) {
     const eventData = {
       eventName,
       selectedDate,
@@ -167,6 +66,12 @@ const EventForm = () => {
     setIsModalOpen(true);
     setEventName("");
     setDescription("");
+    setSelectedDate(null);
+    setTimeZone("");
+    setStartTime(null);
+    setEndTime(null);
+    setVideoLink('');
+  }
   };
 
   const handleEdit = () => {
@@ -180,6 +85,9 @@ const EventForm = () => {
     setEndTime(eventData.endTime ? new Date(eventData.endTime) : null);
     setDescription(eventData.description || '');
     setVideoLink(eventData.videoLink || '');
+    setTimeout(() => {
+      localStorage.removeItem('eventData')
+    }, 1000);
   };
 
   const handleClose = () => {
@@ -194,10 +102,10 @@ const EventForm = () => {
         onEdit={handleEdit}
         eventDate={selectedDate ? selectedDate.toDateString() : ''}
       />
-      {formError && (
+      {(formError.eventName || formError.description) && (
         <Box className="form-error">
           <img src="./images/info-icon.svg" alt="" />
-          <h1>{formError}</h1>
+          <h1>Missing Event {formError.eventName && formError.eventName} {formError.description && `, ${formError.description}`}</h1>
         </Box>
       )}
       <Box className="create-event">
@@ -215,6 +123,7 @@ const EventForm = () => {
             placeholder="Your event name"
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
+            className={formError.eventName && "event-error"}
           />
         </Box>
         <Box className="date-time">
@@ -275,6 +184,7 @@ const EventForm = () => {
             placeholder="Add event description..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className={formError.description && "event-error"}
           ></textarea>
         </Box>
         <Box className="video">
@@ -301,7 +211,15 @@ const EventForm = () => {
         </Box>
         <Box className="form-button">
           <button type="submit" className="submit">Create event</button>
-          <button type="button" className="cancel">Cancel</button>
+          <button type="button" className="cancel" onClick={()=>{
+               setEventName("");
+               setDescription("");
+               setSelectedDate(null);
+               setTimeZone("");
+               setStartTime(null);
+               setEndTime(null);
+               setVideoLink('');
+          }}>Cancel</button>
         </Box>
       </form>
     </Box>

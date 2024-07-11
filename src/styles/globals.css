@@ -161,6 +161,9 @@ a {
     outline: none;
   }
 }
+.event-error {
+  border: 2px solid red!important;
+}
 .date-time {
   margin-top: 55px;
   > label {
