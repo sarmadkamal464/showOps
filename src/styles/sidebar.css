@@ -62,7 +62,7 @@
       > img {
         width: 16px;
         height: 16px;
-        filter: var(--img-mode-color);
+        filter: invert(0);
       }
       > h1 {
         font-size: 16px;
