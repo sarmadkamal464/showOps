@@ -69,7 +69,7 @@ const Sidebar = () => {
               <Menubar.Root className="navigation-menu">
                 {navigationItems.map((item, index) => (
                   <Menubar.Menu key={index}>
-                    <Menubar.Trigger>
+                    <Menubar.Trigger className={index == 0?'active':'' }>
                       <Image
                         width={16}
                         height={16}
