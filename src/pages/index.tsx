@@ -7,19 +7,20 @@ import { useGlobalState } from '../context/GlobalState';
 import Sidebar from '../components/sidebar';
 import Navbar from '../components/Navbar/navbar';
 import EventForm from '../components/eventform';
+import { Box } from '@radix-ui/themes';
 
 const Home: NextPage = () => {
   const [state, dispatch] = useGlobalState();
 
   return (
-    <div className={styles.container}>
-      <div className="main-wrapper">
+    <Box className={styles.container}>
+      <Box className="main-wrapper">
         <Sidebar />
-        <div className="content">
+        <Box className="content">
           <Navbar />
           <EventForm />
-        </div>
-      </div>
+        </Box>
+      </Box>
 
       <Head>
         <title>Next.js Boilerplate</title>
@@ -38,7 +39,7 @@ const Home: NextPage = () => {
 
         <p>{state.user ? `User: ${state.user}` : 'No user set'}</p>
       </main> */}
-    </div>
+    </Box>
   );
 };
 

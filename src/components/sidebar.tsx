@@ -1,95 +1,132 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Box } from "@radix-ui/themes";
+import Image from "next/image";
+import * as Menubar from "@radix-ui/react-menubar";
+
 const Sidebar = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const navigationItems = [
+    {
+      imageSrc: "./images/dashboard.svg",
+      alt: "Dashboard",
+      text: "Dashboard",
+    },
+    {
+      imageSrc: "./images/calendar.svg",
+      alt: "Calendar",
+      text: "Calendar",
+    },
+    {
+      imageSrc: "./images/bookmark.svg",
+      alt: "Events",
+      text: "Events",
+    },
+    {
+      imageSrc: "./images/backpack.svg",
+      alt: "Offers & Deals",
+      text: "Offers & Deals",
+    },
+    {
+      imageSrc: "./images/mixer-horizontal.svg",
+      alt: "Settings",
+      text: "Settings",
+    },
+  ];
+  const profileItems = [
+    {
+      imageSrc: "./images/profile-1.svg",
+      alt: "Profile",
+      label: "Tourist",
+      text: "The Viper Room",
+    },
+    {
+      imageSrc: "./images/profile-2.svg",
+      alt: "Profile",
+      label: "Jason Isbell",
+      text: "The Wiltren",
+    },
+    {
+      imageSrc: "./images/profile-3.svg",
+      alt: "Profile",
+      label: "Brenn!",
+      text: "The Troubadour",
+    },
+  ];
   return (
-    <div>
-      <div className="sidebar">
-        <div className="navigation-bar">
-          <div>
-            <div className="navbar-logo">
-              <img src="./images/Logo.svg" alt="Logo" />
-            </div>
-            <div className="navigation-menu-wrapper">
-              <ul className="navigation-menu">
-                <li className="active">
-                  <a href="#">
-                    <img src="./images/dashboard.svg" alt="Dashboard" />
-                    <h1>Dashboard</h1>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="./images/calendar.svg" alt="Calendar" />
-                    <h1>Calendar</h1>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="./images/bookmark.svg" alt="Events" />
-                    <h1>Events</h1>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="./images/backpack.svg" alt="Offers & Deals" />
-                    <h1>Offers & Deals</h1>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <img src="./images/mixer-horizontal.svg" alt="Settings" />
-                    <h1>Settings</h1>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="today-events">
-              <div className="todays-event-head">
+    <Box>
+      <Box className="sidebar">
+        <Box className="navigation-bar">
+          <Box>
+            <Box className="navbar-logo">
+              <Image
+                width={150}
+                height={27}
+                src="./images/Logo.svg"
+                alt="Logo"
+              />
+            </Box>
+            <Box className="navigation-menu-wrapper">
+              <Menubar.Root className="navigation-menu">
+                {navigationItems.map((item, index) => (
+                  <Menubar.Menu key={index}>
+                    <Menubar.Trigger>
+                      <Image
+                        width={16}
+                        height={16}
+                        src={item.imageSrc}
+                        alt={item.alt}
+                      />
+                      <h1>{item.text}</h1>
+                    </Menubar.Trigger>
+                  </Menubar.Menu>
+                ))}
+              </Menubar.Root>
+            </Box>
+            <Box className="today-events">
+              <Box className="todays-event-head">
                 <h1>Todays Events</h1>
-              </div>
-              <ul className="today-events-profile">
-                <li>
-                  <img src="./images/profile-1.svg" alt="Profile" />
-                  <div className="profile-content">
-                    <label>Tourist</label>
-                    <h1>The Viper Room</h1>
-                  </div>
-                </li>
-                <li>
-                  <img src="./images/profile-2.svg" alt="Profile" />
-                  <div className="profile-content">
-                    <label>Jason Isbell</label>
-                    <h1>The Wiltren</h1>
-                  </div>
-                </li>
-                <li>
-                  <img src="./images/profile-3.svg" alt="Profile" />
-                  <div className="profile-content">
-                    <label>Brenn!</label>
-                    <h1>The Troubadour</h1>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="sidebar-footer">
-            <div className={darkMode? "dark-mode": "light-mode"}>
-              <div onClick={()=>{
-                document.body.className = darkMode ? 'dark-theme' : 'light-theme';
-                setDarkMode(!darkMode)}
-            }>
+              </Box>
+              <Menubar.Root className="today-events-profile">
+                {profileItems.map((item, index) => (
+                  <Menubar.Menu key={index}>
+                    <Menubar.Trigger>
+                      <Image
+                        width={40}
+                        height={40}
+                        src={item.imageSrc}
+                        alt={item.alt}
+                      />
+                      <Box className="profile-content">
+                        <label>{item.label}</label>
+                        <h1>{item.text}</h1>
+                      </Box>
+                    </Menubar.Trigger>
+                  </Menubar.Menu>
+                ))}
+              </Menubar.Root>
+            </Box>
+          </Box>
+          <Box className="sidebar-footer">
+            <Box className={darkMode ? "dark-mode" : "light-mode"}>
+              <Box
+                onClick={() => {
+                  document.body.className = darkMode
+                    ? "dark-theme"
+                    : "light-theme";
+                  setDarkMode(!darkMode);
+                }}>
                 <span></span>
-              </div>
+              </Box>
               <label>Dark Mode</label>
-            </div>
-            <div className="terms-policy">
+            </Box>
+            <Box className="terms-policy">
               <a href="#">Terms of Use</a>
               <a href="#">Privacy Policy</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
