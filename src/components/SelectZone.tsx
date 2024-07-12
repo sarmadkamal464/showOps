@@ -15,9 +15,9 @@ type SelectZoneProps = {
 }
 
 const SelectZone: React.FC<SelectZoneProps> = ({ timeZone, setTimeZone }) => {
-  return (<Box>
-    <Select.Root value={timeZone} onValueChange={(value) => setTimeZone(value)}>
-              <Select.Trigger className="SelectTrigger" aria-label="Time Zone">
+  return (<Box className="event-form-select">
+    <Select.Root value={timeZone} onValueChange={(value) => setTimeZone(value)} >
+              <Select.Trigger className="SelectTrigger event-form-select" aria-label="Time Zone">
                 <Select.Value placeholder="Select Time Zone…" />
                 <Select.Icon className="SelectIcon">
                   <ChevronDownIcon />

@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Switch from '@radix-ui/react-switch';
+import { useGlobalState } from '../../context/GlobalState';
 
 const SwitchDemo = () => {
-    const [isChecked, setIsChecked] = useState(false); 
-    console.log('isChecked 1',isChecked)
-    const handleChange = () => {
-        document.body.className = isChecked
-                    ? "dark-theme"
-                    : "light-theme";
-        setIsChecked(!isChecked)
-    };
-    return(
-    <div style={{ display: 'flex', alignItems: 'center', }}>
-      
-      <Switch.Root className={`SwitchRoot ${isChecked ? "dark-mode" : "light-mode"}`}  id="airplane-mode"
-     checked={isChecked} onCheckedChange={handleChange}>
+  const [state, dispatch] = useGlobalState();
+
+  const toggleMode = (e) => {
+    console.log(e)
+    const newMode = state.mode === 'light' ? 'dark' : 'light';
+    document.body.className = state.mode === 'dark' ? 'dark-theme' : 'light-theme';
+    dispatch({ type: 'SET_MODE', payload: newMode });
+  };
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Switch.Root
+        className={`SwitchRoot ${state.mode === 'dark' ? 'dark-mode' : 'light-mode'}`}
+        id="theme-mode"
+        checked={state.mode === 'dark'}
+        onCheckedChange={toggleMode}
+      >
         <Switch.Thumb className="SwitchThumb" />
       </Switch.Root>
-      <label className="Label" htmlFor="airplane-mode" style={{ paddingRight: 15 }}>
-       { isChecked? 'Dark Mode' : 'Light Mode'}
+      <label className="Label" htmlFor="theme-mode" style={{ paddingRight: 15 }}>
+        {state.mode === 'dark' ? 'Dark Mode' : 'Light Mode'}
       </label>
     </div>
-)};
+  );
+};
 
 export default SwitchDemo;

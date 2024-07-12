@@ -10,19 +10,19 @@ button {
 .SelectTrigger {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   border-radius: 4px;
   padding: 0 18px;
   font-size: 13px;
   line-height: 1;
   height: 35px;
-  gap: 50px;
+  gap: 20px;
   background-color: transparent;
-  color: #1d211c;
+  color: var(--text-gray-color);
   box-shadow: none;
 }
 .SelectTrigger:hover {
-  background-color: var(--mauve-3);
+  /* background-color: var(--mauve-3); */
 }
 .SelectTrigger:focus {
   /* box-shadow: 0 0 0 2px black; */

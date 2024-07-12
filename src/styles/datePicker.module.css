@@ -6,7 +6,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    color: #333;
+    color: var(--text-gray-color);
     background-color: transparent;
     border: none;
   }

@@ -4,9 +4,12 @@ import Image from "next/image";
 import * as Menubar from "@radix-ui/react-menubar";
 import SwitchDemo from "../Switch/switch";
 import { navigationItems, profileItems } from "../../constants/index.js";
+import { useGlobalState } from "../../context/GlobalState";
 
 const Sidebar = () => {
   // const [darkMode, setDarkMode] = useState(false);
+  const [state] = useGlobalState();
+  const { mode } = state;
   return (
     <Box>
       <Box className="sidebar">
@@ -18,10 +21,11 @@ const Sidebar = () => {
                 height={27}
                 src="./images/Logo.svg"
                 alt="Logo"
+                style={{ filter: mode === 'dark'  ? 'invert(100%)' : 'invert(0%)' }}
               />
             </Box>
             <Box className="navigation-menu-wrapper">
-              <Menubar.Root className="navigation-menu">
+              <Menubar.Root className="navigation-menu for-dark-mode">
                 {navigationItems.map((item, index) => (
                   <Menubar.Menu key={index}>
                     <Menubar.Trigger className={index == 0 ? "active" : ""}>
@@ -30,6 +34,7 @@ const Sidebar = () => {
                         height={16}
                         src={item.imageSrc}
                         alt={item.alt}
+                        style={{ filter: mode === 'dark'  ? 'invert(100%)' : 'invert(0%)' }}
                       />
                       <h1>{item.text}</h1>
                     </Menubar.Trigger>

@@ -4,10 +4,12 @@ import { Box, Button, TextField } from "@radix-ui/themes";
 import Image from "next/image";
 import * as Menubar from "@radix-ui/react-menubar";
 import { menuItems } from "../../constants/index.js";
+import { useGlobalState } from "../../context/GlobalState.jsx";
 
 const Navbar = () => {
   // Define an array of menu items
-
+  const [state] = useGlobalState();
+  const { mode } = state;
   return (
     <Box className="navbar">
       <Box className="navbar-sidebar-btn">
@@ -17,6 +19,7 @@ const Navbar = () => {
             alt="chevron-left"
             width={18}
             height={18}
+            style={{ filter: mode === 'dark'  ? 'invert(100%)' : 'invert(0%)' }}
           />
         </Button>
         <Button className="navbar-btn">
@@ -37,6 +40,7 @@ const Navbar = () => {
               alt="magnifying-glass"
               width={16}
               height={16}
+              style={{ filter: mode === 'dark'  ? 'invert(100%)' : 'invert(0%)' }}
             />
           </Box>
           <Box className="search-input">
@@ -55,6 +59,7 @@ const Navbar = () => {
                 alt="ShiftTab"
                 width={27}
                 height={24}
+                style={{ filter: mode === 'dark'  ? 'invert(100%)' : 'invert(0%)' }}
               />
             </Button>
           </Box>

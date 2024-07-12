@@ -7,6 +7,7 @@ import { Box, Button } from "@radix-ui/themes";
 import Image from "next/image";
 import SelectZone from "./SelectZone";
 import Modal from "./Modal/Modal";
+import { useGlobalState } from "../context/GlobalState";
 
 const EventForm = () => {
   const [eventName, setEventName] = useState("");
@@ -24,6 +25,8 @@ const EventForm = () => {
   const [bannerImage, setBannerImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
+  const [state] = useGlobalState();
+  const { mode } = state;
   useEffect(() => {
     // Load event data from local storage on component mount
     const eventData = JSON.parse(localStorage.getItem("eventData") || "{}");
@@ -214,6 +217,9 @@ const EventForm = () => {
                 alt="calendar"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
               <DatePicker
                 selected={selectedDate}
@@ -228,14 +234,20 @@ const EventForm = () => {
                 alt="chevron-down"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
             </Box>
             <Box>
               <Image
-                src="./images/calendar.svg"
-                alt="calendar"
+                src="./images/globe.svg"
+                alt="globe"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
               <SelectZone timeZone={timeZone} setTimeZone={setTimeZone} />
               <Image
@@ -243,14 +255,20 @@ const EventForm = () => {
                 alt="chevron-down"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
             </Box>
             <Box>
               <Image
-                src="./images/calendar.svg"
+                src="./images/clock.svg"
                 alt="calendar"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
               <DatePicker
                 selected={startTime}
@@ -268,14 +286,20 @@ const EventForm = () => {
                 alt="chevron-down"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
             </Box>
             <Box>
               <Image
-                src="./images/calendar.svg"
+                src="./images/clock.svg"
                 alt="calendar"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
               <DatePicker
                 selected={endTime}
@@ -293,6 +317,9 @@ const EventForm = () => {
                 alt="chevron-down"
                 width={18}
                 height={18}
+                style={{
+                  filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+                }}
               />
             </Box>
           </Box>
@@ -303,7 +330,7 @@ const EventForm = () => {
             id="description"
             placeholder="Add event description..."
             value={description}
-            onChange={(e)=>setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             className={formError.description && "event-error"}
             minLength={15}
           ></textarea>
@@ -311,7 +338,15 @@ const EventForm = () => {
         <Box className="video">
           <label htmlFor="videoLink">Video</label>
           <Box>
-            <Image src="./images/link-2.svg" alt="" width={18} height={18} />
+            <Image
+              src="./images/link-2.svg"
+              alt=""
+              width={18}
+              height={18}
+              style={{
+                filter: mode === "dark" ? "invert(100%)" : "invert(0%)",
+              }}
+            />
             <input
               id="videoLink"
               type="text"
