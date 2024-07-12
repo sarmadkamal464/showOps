@@ -21,6 +21,7 @@ const EventForm = () => {
   const [formError, setFormError] = useState<object | null>({
     eventName: "",
     description: "",
+    videoLink:""
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bannerImage, setBannerImage] = useState<File | null>(null);
@@ -47,7 +48,7 @@ const EventForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     let hasErrors = false;
-    const newErrors = { eventName: "", description: "" };
+    const newErrors = { eventName: "", description: "", videoLink:""};
 
     if (!eventName.trim()) {
       newErrors.eventName = "Name";
@@ -56,6 +57,11 @@ const EventForm = () => {
 
     if (!description.trim()) {
       newErrors.description = "Description";
+      hasErrors = true;
+    }
+
+    if (!videoLink.startsWith("https://")) {
+      newErrors.videoLink = "Link always should be in https form";
       hasErrors = true;
     }
     setFormError(newErrors);
@@ -120,30 +126,24 @@ const EventForm = () => {
 
   const handleVideoLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    setVideoLink(value);
+  };
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { value } = e.target;
 
-    // Check if the entered value starts with "https://"
-    if (value.startsWith("https://")) {
-      setVideoLink(value);
-    } else if (value === "" || value.startsWith("http://")) {
-      // Allow http:// links for compatibility, else ignore invalid input
-      setVideoLink(value);
+    // Update description state
+    setDescription(value);
+
+    // Validate description length
+    if (value.length < 15) {
+      // setFormError({ description: 'Description should be more than 15 characters' });
+      setFormError((prev)=>({...prev, description: 'Description should be more than 15 characters'}));
+    } else {
+      setFormError((prev)=>({...prev, description: ''}));
     }
   };
-  // const handleDescriptionChange = (
-  //   e: React.ChangeEvent<HTMLTextAreaElement>
-  // ) => {
-  //   const { value } = e.target;
-
-  //   // Update description state
-  //   setDescription(value);
-
-  //   // Validate description length
-  //   if (value.length < 15) {
-  //     setFormError({ description: 'Description' });
-  //   } else {
-  //     setFormError({ description: '' });
-  //   }
-  // };
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -188,6 +188,7 @@ const EventForm = () => {
           <h1>
             Missing Event {formError.eventName && formError.eventName}{" "}
             {formError.description && `, ${formError.description}`}
+            {formError.videoLink && `, ${formError.videoLink}`}
           </h1>
         </Box>
       )}
@@ -331,9 +332,8 @@ const EventForm = () => {
             id="description"
             placeholder="Add event description..."
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={handleDescriptionChange}
             className={formError.description && "event-error"}
-            minLength={15}
           ></textarea>
         </Box>
         <Box className="video">
@@ -354,6 +354,7 @@ const EventForm = () => {
               placeholder="Add video link..."
               value={videoLink}
               onChange={handleVideoLinkChange}
+              className={formError.videoLink && "event-error"}
             />
           </Box>
         </Box>
