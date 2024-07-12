@@ -13,13 +13,14 @@ button {
   justify-content: start;
   border-radius: 4px;
   padding: 0 18px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1;
   height: 35px;
   gap: 20px;
   background-color: transparent;
   color: var(--text-gray-color);
   box-shadow: none;
+  font-weight: 500;
 }
 .SelectTrigger:hover {
   /* background-color: var(--mauve-3); */

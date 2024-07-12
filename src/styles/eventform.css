@@ -92,9 +92,10 @@
         width: 281px;
         background-color: var(--background-color-light-gray);
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         border-radius: 7px;
+        padding: 0px 14px;
         > img {
           width: 15.6px;
           height: 15.6px;
@@ -190,6 +191,7 @@
         > a {
           color: var(--text-gray-color);
           text-decoration: underline;
+          font-weight: 600;
         }
       }
     }

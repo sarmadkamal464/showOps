@@ -9,6 +9,7 @@ import SelectZone from "./SelectZone";
 import Modal from "./Modal/Modal";
 import { useGlobalState } from "../context/GlobalState";
 
+
 const EventForm = () => {
   const [eventName, setEventName] = useState("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);

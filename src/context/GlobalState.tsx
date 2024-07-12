@@ -1,37 +1,36 @@
 // src/context/GlobalState.tsx
 
-import React, { createContext, useReducer, useContext, ReactNode } from 'react';
+import React, { createContext, useReducer, useContext, ReactNode } from "react";
 
 type StateType = {
   user: string | null;
-  mode: 'light' | 'dark';
+  mode: "light" | "dark";
 };
 
 type ActionType = {
-  type: 'SET_USER' | 'SET_MODE';
+  type: "SET_USER" | "SET_MODE";
   payload?: any;
 };
 
 const initialState: StateType = {
   user: null,
-  mode: 'light',
+  mode: "light",
 };
 
 const reducer = (state: StateType, action: ActionType): StateType => {
   switch (action.type) {
-    case 'SET_USER':
+    case "SET_USER":
       return { ...state, user: action.payload };
-    case 'SET_MODE':
+    case "SET_MODE":
       return { ...state, mode: action.payload };
     default:
       return state;
   }
 };
 
-const GlobalStateContext = createContext<[StateType, React.Dispatch<ActionType>]>([
-  initialState,
-  () => initialState,
-]);
+const GlobalStateContext = createContext<
+  [StateType, React.Dispatch<ActionType>]
+>([initialState, () => initialState]);
 
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

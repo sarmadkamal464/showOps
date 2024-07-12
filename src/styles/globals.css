@@ -41,7 +41,7 @@ a {
   --background-color-black: #ffffff;
   --background-color-error: #fcebec;
   --text-error-color: #ce292e;
-  --text-active-color: #72d586;
+  --text-active-color: #267D36;
   --img-mode-color: invert(0);
 }
 /* --background-color: #FFFFFF;
@@ -63,7 +63,7 @@ a {
   --background-color-black: #0d0d0c;
   --background-color-error: #3b1318;
   --text-error-color: #f29592;
-  --text-active-color: #72d586;
+  --text-active-color: #267D36;
   --img-mode-color: invert(0);
 }
 .dark-theme {
@@ -171,4 +171,7 @@ a {
       color: var(--text-gray-color);
     }
   }
+}
+.react-datepicker__tab-loop{
+  position: absolute;
 }
